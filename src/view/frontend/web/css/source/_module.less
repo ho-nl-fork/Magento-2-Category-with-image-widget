@@ -1,0 +1,57 @@
+/**
+ * Copyright (c) 2016 H&O E-commerce specialisten B.V. (http://www.h-o.nl/)
+ * See LICENSE.txt for license details.
+ */
+
+& when (@media-common = true) {
+    .cwiw {
+        width: 100%;
+        clear: both;
+        float: none;
+        text-align: center;
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 0 -10px;
+
+            .category-item {
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .cwiw {
+        .categories {
+            .category-item {
+                flex: 1 0 25%;
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .cwiw {
+        .categories {
+            .category-item {
+                flex: 1 1 50%;
+                min-width: 45%;
+            }
+        }
+    }
+}

@@ -1,24 +1,30 @@
 <?php
     $categories = $this->getCategoryCollection();
     $categoryHelper = $this->getCategoryHelper();
+    $mainTitle = $this->getMainTitle();
+    $tagLine = $this->getTagLine();
 ?>
-<div class="widget block block-static-block cwiw" id="catewithimg">
+<div class="widget block cwiw" id="catewithimg">
     <div class="block-content">
-        <div class="content-heading">
-            <h2 class="title"><?php echo $this->getMainTitle(); ?></h2>
-            <p class="info"><?php echo $this->getTagLine(); ?></p>
-        </div>
-        <div class="row">
-        <?php
-        foreach($categories as $category):
-            $cat = $this->getCategorymodel($category->getId());
-            $image = $cat->getImageUrl();
-        ?>
+        <?php if($mainTitle || $tagLine):?>
+            <div class="content-heading">
+                <?php if($mainTitle):?>
+                <h2><?php echo $mainTitle; ?></h2>
+                <?php endif;?>
+                <?php if($tagLine):?>
+                <p class="info"><?php echo $tagLine; ?></p>
+                <?php endif;?>
+            </div>
+        <?php endif;?>
+        <div class="categories" data-mage-init='{"Ho_Base/js/flex-grid": {}}'>
+        <?php foreach($categories as $category):?>
+            <?php $cat = $this->getCategorymodel($category->getId());?>
+            <?php $image = $cat->getImageUrl();?>
             <?php if($image != null): ?>
-                <div class="col-md-4">
-                    <a class="category_name" href="<?php echo $cat->getUrl(); ?>">
-                       <img src="<?php echo $image; ?>" class="img-responsive category_image" alt="<?php echo $cat->getName(); ?>" />
-                        <h3><span><?php echo $cat->getName(); ?></span></h3>
+                <div class="category-item">
+                    <a class="link" href="<?php echo $cat->getUrl(); ?>">
+                       <img src="<?php echo $image; ?>" class="image" alt="<?php echo $cat->getName(); ?>" />
+                        <h3 class="name"><span><?php echo $cat->getName(); ?></span></h3>
                     </a>
                 </div>
             <?php endif; ?>
